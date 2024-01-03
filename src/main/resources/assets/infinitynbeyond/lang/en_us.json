@@ -3,5 +3,11 @@
 
   "item.infinitynbeyond.end_essence": "End Essence",
 
+  "item.infinitynbeyond.end_essence_sword": "End Essence Sword",
+  "item.infinitynbeyond.end_essence_pickaxe": "End Essence Pickaxe",
+  "item.infinitynbeyond.end_essence_axe": "End Essence Axe",
+  "item.infinitynbeyond.end_essence_hoe": "End Essence Hoe",
+  "item.infinitynbeyond.end_essence_shovel": "End Essence Shovel",
+
   "block.infinitynbeyond.end_essence_ore" : "End Essence Ore"
 }
