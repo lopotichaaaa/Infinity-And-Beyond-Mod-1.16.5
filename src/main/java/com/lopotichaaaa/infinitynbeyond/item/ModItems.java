@@ -1,6 +1,7 @@
 package com.lopotichaaaa.infinitynbeyond.item;
 
 import com.lopotichaaaa.infinitynbeyond.InfinityAndBeyond;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
@@ -28,6 +29,19 @@ public class ModItems {
                     new Item.Properties().group(ModItemsGroup.INFINITY_AND_BEYOND)));
     public static final RegistryObject<Item> END_ESSENCE_SHOVEL = ITEMS.register("end_essence_shovel",
             ()-> new ShovelItem(ModItemTier.END_ESSENCE,-1,-3f,
+                    new Item.Properties().group(ModItemsGroup.INFINITY_AND_BEYOND)));
+
+    public static final RegistryObject<Item> END_ESSENCE_BOOTS = ITEMS.register("end_essence_boots",
+            ()-> new ArmorItem(ModArmorMaterial.AMETHYST, EquipmentSlotType.FEET,
+                    new Item.Properties().group(ModItemsGroup.INFINITY_AND_BEYOND)));
+    public static final RegistryObject<Item> END_ESSENCE_LEGGINGS = ITEMS.register("end_essence_leggings",
+            ()-> new ArmorItem(ModArmorMaterial.AMETHYST, EquipmentSlotType.LEGS,
+                    new Item.Properties().group(ModItemsGroup.INFINITY_AND_BEYOND)));
+    public static final RegistryObject<Item> END_ESSENCE_CHESTPLATE = ITEMS.register("end_essence_chestplate",
+            ()-> new ArmorItem(ModArmorMaterial.AMETHYST, EquipmentSlotType.CHEST,
+                    new Item.Properties().group(ModItemsGroup.INFINITY_AND_BEYOND)));
+    public static final RegistryObject<Item> END_ESSENCE_HELMET = ITEMS.register("end_essence_helmet",
+            ()-> new ArmorItem(ModArmorMaterial.AMETHYST, EquipmentSlotType.HEAD,
                     new Item.Properties().group(ModItemsGroup.INFINITY_AND_BEYOND)));
 
 

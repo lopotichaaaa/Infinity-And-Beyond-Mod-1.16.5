@@ -1,6 +1,7 @@
 {
   "itemGroup.infinitynbeyondTab" : "Infinity and Beyond",
 
+
   "item.infinitynbeyond.end_essence": "End Essence",
 
   "item.infinitynbeyond.end_essence_sword": "End Essence Sword",
@@ -8,6 +9,12 @@
   "item.infinitynbeyond.end_essence_axe": "End Essence Axe",
   "item.infinitynbeyond.end_essence_hoe": "End Essence Hoe",
   "item.infinitynbeyond.end_essence_shovel": "End Essence Shovel",
+
+  "item.infinitynbeyond.end_essence_boots": "End Essence Boots",
+  "item.infinitynbeyond.end_essence_leggings": "End Essence Leggings",
+  "item.infinitynbeyond.end_essence_chestplate": "End Essence Chestplate",
+  "item.infinitynbeyond.end_essence_helmet": "End Essence Helmet",
+
 
   "block.infinitynbeyond.end_essence_ore" : "End Essence Ore"
 }
