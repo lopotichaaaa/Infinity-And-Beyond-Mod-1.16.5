@@ -1,5 +1,6 @@
 package com.lopotichaaaa.infinitynbeyond;
 
+import com.lopotichaaaa.infinitynbeyond.block.ModBlocks;
 import com.lopotichaaaa.infinitynbeyond.item.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -33,6 +34,7 @@ public class InfinityAndBeyond
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
 
         modEventBus.addListener(this::setup);
         // Register the enqueueIMC method for modloading
