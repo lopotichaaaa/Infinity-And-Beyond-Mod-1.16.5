@@ -1,6 +1,7 @@
 package com.lopotichaaaa.infinitynbeyond.block;
 
 import com.lopotichaaaa.infinitynbeyond.InfinityAndBeyond;
+import com.lopotichaaaa.infinitynbeyond.block.custom.EndInfuserBlock;
 import com.lopotichaaaa.infinitynbeyond.item.ModItems;
 import com.lopotichaaaa.infinitynbeyond.item.ModItemsGroup;
 import net.minecraft.block.AbstractBlock;
@@ -24,6 +25,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> END_ESSENCE_ORE = registerBlock("end_essence_ore",
             ()-> new Block(AbstractBlock.Properties.create(Material.ROCK).harvestLevel(4)
                     .harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(8f)));
+
+    public static final RegistryObject<Block> END_INFUSER_BLOCK = registerBlock("end_infuser",
+            ()-> new EndInfuserBlock(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2)
+                    .harvestTool(ToolType.PICKAXE).hardnessAndResistance(4f)));
 
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block){

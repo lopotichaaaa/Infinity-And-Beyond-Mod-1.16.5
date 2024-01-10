@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "infusing=false": {
+      "model": "infinitynbeyond:block/end_infuser"
+    },
+    "infusing=true": {
+      "model": "infinitynbeyond:block/end_infuser_infusing"
+    }
+  }
+}
