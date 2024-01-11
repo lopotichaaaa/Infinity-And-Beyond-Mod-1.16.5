@@ -11,6 +11,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -110,9 +112,13 @@ public class EndInfuserTile extends TileEntity implements ITickableTileEntity {
 
             infuseTheItem(output);
 
-
+            playInfusingSond();
             markDirty();
         });
+    }
+
+    private void playInfusingSond(){
+        world.playSound(null,pos, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.BLOCKS,1f,1f);
     }
 
     private void infuseTheItem(ItemStack output) {
