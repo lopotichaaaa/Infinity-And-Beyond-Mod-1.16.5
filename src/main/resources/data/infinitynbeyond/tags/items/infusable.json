@@ -1,8 +1,29 @@
 {
   "replace": false,
   "values": [
-    "infinitynbeyond:end_essence_sword",
 
-    "minecraft:netherite_sword"
+    "minecraft:netherite_sword",
+    "minecraft:netherite_axe",
+    "minecraft:netherite_pickaxe",
+    "minecraft:netherite_hoe",
+    "minecraft:netherite_shovel",
+
+    "minecraft:netherite_helmet",
+    "minecraft:netherite_chestplate",
+    "minecraft:netherite_leggings",
+    "minecraft:netherite_boots",
+
+
+
+    "infinitynbeyond:end_essence_sword",
+    "infinitynbeyond:end_essence_axe",
+    "infinitynbeyond:end_essence_pickaxe",
+    "infinitynbeyond:end_essence_hoe",
+    "infinitynbeyond:end_essence_shovel",
+
+    "infinitynbeyond:end_essence_helmet",
+    "infinitynbeyond:end_essence_chestplate",
+    "infinitynbeyond:end_essence_leggings",
+    "infinitynbeyond:end_essence_boots"
   ]
 }
