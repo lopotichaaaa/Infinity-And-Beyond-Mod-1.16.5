@@ -1,9 +1,14 @@
 package com.lopotichaaaa.infinitynbeyond;
 
 import com.lopotichaaaa.infinitynbeyond.block.ModBlocks;
+import com.lopotichaaaa.infinitynbeyond.container.ModContainers;
+import com.lopotichaaaa.infinitynbeyond.data.recipes.ModRecipeTypes;
 import com.lopotichaaaa.infinitynbeyond.item.ModItems;
+import com.lopotichaaaa.infinitynbeyond.screan.EndInfuserScreen;
+import com.lopotichaaaa.infinitynbeyond.tileentities.ModTileEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -35,6 +40,9 @@ public class InfinityAndBeyond
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModTileEntities.register(modEventBus);
+        ModContainers.register(modEventBus);
+        ModRecipeTypes.register(modEventBus);
 
         modEventBus.addListener(this::setup);
         // Register the enqueueIMC method for modloading
@@ -50,26 +58,23 @@ public class InfinityAndBeyond
 
     private void setup(final FMLCommonSetupEvent event)
     {
-        // some preinit code
-        LOGGER.info("HELLO FROM PREINIT");
-        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
+
+        ScreenManager.registerFactory(ModContainers.END_INFUSER_CONTAINER.get(),
+                EndInfuserScreen::new);
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)
     {
-        // some example code to dispatch IMC to another mod
-        InterModComms.sendTo("examplemod", "helloworld", () -> { LOGGER.info("Hello world from the MDK"); return "Hello world";});
+
+
     }
 
     private void processIMC(final InterModProcessEvent event)
     {
-        // some example code to receive and process InterModComms from other mods
-        LOGGER.info("Got IMC {}", event.getIMCStream().
-                map(m->m.getMessageSupplier().get()).
-                collect(Collectors.toList()));
+
     }
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
