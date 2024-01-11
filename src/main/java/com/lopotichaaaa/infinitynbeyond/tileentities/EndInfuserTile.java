@@ -1,19 +1,16 @@
 package com.lopotichaaaa.infinitynbeyond.tileentities;
 
-import com.lopotichaaaa.infinitynbeyond.container.EndInfuserContainer;
+import com.lopotichaaaa.infinitynbeyond.data.recipes.EndInfusionRecipe;
+import com.lopotichaaaa.infinitynbeyond.data.recipes.ModRecipeTypes;
 import com.lopotichaaaa.infinitynbeyond.item.ModItems;
 import com.lopotichaaaa.infinitynbeyond.util.ModTags;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.LockableTileEntity;
+import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -21,8 +18,9 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
+import java.util.Optional;
 
-public class EndInfuserTile extends LockableTileEntity {
+public class EndInfuserTile extends TileEntity implements ITickableTileEntity {
 
     private final ItemStackHandler itemHandler = createHandler();
 
@@ -96,55 +94,40 @@ public class EndInfuserTile extends LockableTileEntity {
         return super.write(compound);
     }
 
-    @Override
-    protected ITextComponent getDefaultName() {
-        return new TranslationTextComponent("screen.infinitynbeyond.end_infuser");
+
+    public void infuse(){
+
+        Inventory inv = new Inventory(itemHandler.getSlots());
+        for (int i=0; i<itemHandler.getSlots();i++){
+            inv.setInventorySlotContents(i, itemHandler.getStackInSlot(i));
+        }
+
+        Optional<EndInfusionRecipe> recipe = world.getRecipeManager()
+                .getRecipe(ModRecipeTypes.END_INFUSION_RECIPE,inv,world);
+
+        recipe.ifPresent(iRecipe -> {
+            ItemStack output = iRecipe.getRecipeOutput();
+
+            infuseTheItem(output);
+
+
+            markDirty();
+        });
     }
 
-    @Override
-    protected Container createMenu(int id, PlayerInventory playerInventory) {
-        World worldIn = playerInventory.player.world;
-        return new EndInfuserContainer(id, worldIn, pos, playerInventory, playerInventory.player);
-    }
-
-    @Override
-    public int getSizeInventory() {
-        return 0;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return false;
-    }
-
-    @Override
-    public ItemStack getStackInSlot(int index) {
-        return null;
-    }
-
-    @Override
-    public ItemStack decrStackSize(int index, int count) {
-        return null;
-    }
-
-    @Override
-    public ItemStack removeStackFromSlot(int index) {
-        return null;
-    }
-
-    @Override
-    public void setInventorySlotContents(int index, ItemStack stack) {
+    private void infuseTheItem(ItemStack output) {
+        itemHandler.extractItem(0,1,false);
+        itemHandler.extractItem(1,1,false);
+        itemHandler.insertItem(1,output,false);
 
     }
 
     @Override
-    public boolean isUsableByPlayer(PlayerEntity player) {
-        return false;
+    public void tick() {
+        if (world.isRemote){
+            return;
+        }
+
+        infuse();
     }
-
-    @Override
-    public void clear() {
-
-    }
-
 }

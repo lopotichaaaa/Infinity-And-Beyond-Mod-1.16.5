@@ -2,6 +2,7 @@ package com.lopotichaaaa.infinitynbeyond;
 
 import com.lopotichaaaa.infinitynbeyond.block.ModBlocks;
 import com.lopotichaaaa.infinitynbeyond.container.ModContainers;
+import com.lopotichaaaa.infinitynbeyond.data.recipes.ModRecipeTypes;
 import com.lopotichaaaa.infinitynbeyond.item.ModItems;
 import com.lopotichaaaa.infinitynbeyond.screan.EndInfuserScreen;
 import com.lopotichaaaa.infinitynbeyond.tileentities.ModTileEntities;
@@ -41,6 +42,7 @@ public class InfinityAndBeyond
         ModBlocks.register(modEventBus);
         ModTileEntities.register(modEventBus);
         ModContainers.register(modEventBus);
+        ModRecipeTypes.register(modEventBus);
 
         modEventBus.addListener(this::setup);
         // Register the enqueueIMC method for modloading

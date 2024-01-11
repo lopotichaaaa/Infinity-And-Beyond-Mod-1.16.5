@@ -1,0 +1,14 @@
+{
+  "type": "infinitynbeyond:infusion",
+  "ingredients": [
+    {
+      "item": "infinitynbeyond:end_essence"
+    },
+    {
+      "item": "minecraft:netherite_sword"
+    }
+  ],
+  "result": {
+    "item": "infinitynbeyond:end_essence_sword"
+  }
+}
