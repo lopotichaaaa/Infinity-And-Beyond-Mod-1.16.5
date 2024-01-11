@@ -17,6 +17,7 @@
 
 
   "block.infinitynbeyond.end_essence_ore" : "End Essence Ore",
-  "block.infinitynbeyond.end_infuser" : "End Infuser"
+  "block.infinitynbeyond.end_infuser" : "End Infuser",
+  "screen.infinitynbeyond.end_infuser" : "End Infuser"
 
 }
