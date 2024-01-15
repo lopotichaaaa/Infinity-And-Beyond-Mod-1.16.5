@@ -26,12 +26,13 @@ public class EndInfuserContainer extends Container {
         this.tileEntity = world.getTileEntity(pos);
         this.playerEntity = player;
         this.playerInventory = new InvWrapper(playerInventory);
-        layoutPlayerInventorySlots(8,86);
+        layoutPlayerInventorySlots(8,102);
 
         if (tileEntity != null){
             tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
-                addSlot(new SlotItemHandler(h,0,80,19));
-                addSlot(new SlotItemHandler(h,1,80,61));
+                addSlot(new SlotItemHandler(h,0,8,72));
+                addSlot(new SlotItemHandler(h,1,53,43));
+                addSlot(new SlotItemHandler(h,2,107,43));
             });
         }
 
@@ -85,7 +86,7 @@ public class EndInfuserContainer extends Container {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 2;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
+    private static final int TE_INVENTORY_SLOT_COUNT = 3;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
 
     @Override
     public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
