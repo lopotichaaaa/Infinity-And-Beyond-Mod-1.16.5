@@ -11,6 +11,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.IIntArray;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.common.capabilities.Capability;
@@ -18,6 +19,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import org.lwjgl.system.CallbackI;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
@@ -25,9 +27,32 @@ import java.util.Optional;
 public class EndInfuserTile extends TileEntity implements ITickableTileEntity {
 
     private final ItemStackHandler itemHandler = createHandler();
-
+    private int infusionTime;
+    private int infusionTimeTotal;
     private int essenceStored;
     private static final int maxEssence = 1024;
+
+    public final IIntArray data = new IIntArray() {
+        @Override
+        public int get(int index) {
+            switch (index){
+                case 0: return infusionTime;
+                case 1: return infusionTimeTotal;
+                case 2: return essenceStored;
+                default: return maxEssence;
+            }
+        }
+
+        @Override
+        public void set(int index, int value) {
+
+        }
+
+        @Override
+        public int size() {
+            return 4;
+        }
+    };
 
     private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
 

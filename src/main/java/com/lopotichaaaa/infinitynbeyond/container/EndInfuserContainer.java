@@ -1,12 +1,14 @@
 package com.lopotichaaaa.infinitynbeyond.container;
 
 import com.lopotichaaaa.infinitynbeyond.block.ModBlocks;
+import com.lopotichaaaa.infinitynbeyond.tileentities.EndInfuserTile;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.IIntArray;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -19,6 +21,8 @@ public class EndInfuserContainer extends Container {
     private final TileEntity tileEntity;
     private final PlayerEntity playerEntity;
     private final IItemHandler playerInventory;
+
+    private final IIntArray entityData;
 
     public EndInfuserContainer(int windowId, World world, BlockPos pos,
                                PlayerInventory playerInventory, PlayerEntity player) {
@@ -37,6 +41,10 @@ public class EndInfuserContainer extends Container {
         }
 
         // TODO : IMPLEMENT THE ARROW
+        assert tileEntity instanceof EndInfuserTile;
+        entityData = ((EndInfuserTile) tileEntity).data;
+        System.out.println(entityData.get(2));
+        System.out.println(pos.toString());
     }
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
