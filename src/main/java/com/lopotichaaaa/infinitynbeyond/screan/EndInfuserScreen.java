@@ -10,10 +10,15 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
 public class EndInfuserScreen extends ContainerScreen<EndInfuserContainer> {
+
+
     private final ResourceLocation GUI = new ResourceLocation(InfinityAndBeyond.MOD_ID,
             "textures/gui/end_infuser_gui.png");
     public EndInfuserScreen(EndInfuserContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
+
         super(screenContainer, inv, titleIn);
+        this.ySize = 184;
+        this.playerInventoryTitleY = this.ySize - 94;
     }
 
     @Override

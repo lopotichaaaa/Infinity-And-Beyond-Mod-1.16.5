@@ -11,6 +11,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.IIntArray;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraftforge.common.capabilities.Capability;
@@ -18,6 +19,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import org.lwjgl.system.CallbackI;
 
 import javax.annotation.Nonnull;
 import java.util.Optional;
@@ -25,6 +27,32 @@ import java.util.Optional;
 public class EndInfuserTile extends TileEntity implements ITickableTileEntity {
 
     private final ItemStackHandler itemHandler = createHandler();
+    private int infusionTime;
+    private int infusionTimeTotal;
+    private int essenceStored;
+    private static final int maxEssence = 1024;
+
+    public final IIntArray data = new IIntArray() {
+        @Override
+        public int get(int index) {
+            switch (index){
+                case 0: return infusionTime;
+                case 1: return infusionTimeTotal;
+                case 2: return essenceStored;
+                default: return maxEssence;
+            }
+        }
+
+        @Override
+        public void set(int index, int value) {
+
+        }
+
+        @Override
+        public int size() {
+            return 4;
+        }
+    };
 
     private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
 
@@ -37,7 +65,7 @@ public class EndInfuserTile extends TileEntity implements ITickableTileEntity {
 
 
     private ItemStackHandler createHandler() {
-        return new ItemStackHandler(2){
+        return new ItemStackHandler(3){
             @Override
             protected void onContentsChanged(int slot) {
                 markDirty();
@@ -47,7 +75,9 @@ public class EndInfuserTile extends TileEntity implements ITickableTileEntity {
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
                 switch (slot){
                     case 0: return stack.getItem() == ModItems.END_ESSENCE.get();
-                    case 1: return stack.getItem().isIn(ModTags.Items.INFUSABLE);
+                    case 1:
+                    case 2:
+                        return stack.getItem().isIn(ModTags.Items.INFUSABLE);
                     default: return false;
                 }
 
@@ -57,7 +87,9 @@ public class EndInfuserTile extends TileEntity implements ITickableTileEntity {
             public int getSlotLimit(int slot) {
                 switch (slot){
                     case 0: return 64;
-                    case 1: return 1;
+                    case 1:
+                    case 2:
+                        return 1;
                     default: return 0;
                 }
             }
@@ -87,12 +119,14 @@ public class EndInfuserTile extends TileEntity implements ITickableTileEntity {
     @Override
     public void read(BlockState state, CompoundNBT nbt) {
         itemHandler.deserializeNBT(nbt.getCompound("inv"));
+        essenceStored = nbt.getInt("essence");
         super.read(state, nbt);
     }
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
         compound.put("inv",itemHandler.serializeNBT());
+        compound.putInt("essence",essenceStored);
         return super.write(compound);
     }
 
@@ -108,9 +142,12 @@ public class EndInfuserTile extends TileEntity implements ITickableTileEntity {
                 .getRecipe(ModRecipeTypes.END_INFUSION_RECIPE,inv,world);
 
         recipe.ifPresent(iRecipe -> {
+            if (iRecipe.getEssence()>essenceStored || !itemHandler.getStackInSlot(2).isEmpty()){
+                return;
+            }
             ItemStack output = iRecipe.getRecipeOutput();
 
-            infuseTheItem(output);
+            infuseTheItem(output, iRecipe.getEssence());
 
             playInfusingSond();
             markDirty();
@@ -121,10 +158,10 @@ public class EndInfuserTile extends TileEntity implements ITickableTileEntity {
         world.playSound(null,pos, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.BLOCKS,1f,1f);
     }
 
-    private void infuseTheItem(ItemStack output) {
-        itemHandler.extractItem(0,1,false);
+    private void infuseTheItem(ItemStack output,int essenceConsumed) {
         itemHandler.extractItem(1,1,false);
-        itemHandler.insertItem(1,output,false);
+        essenceStored -= essenceConsumed;
+        itemHandler.insertItem(2,output,false);
 
     }
 
@@ -132,6 +169,10 @@ public class EndInfuserTile extends TileEntity implements ITickableTileEntity {
     public void tick() {
         if (world.isRemote){
             return;
+        }
+        if(itemHandler.getStackInSlot(0).getCount()>0 && essenceStored<maxEssence){
+            itemHandler.getStackInSlot(0).shrink(1);
+            essenceStored++;
         }
 
         infuse();

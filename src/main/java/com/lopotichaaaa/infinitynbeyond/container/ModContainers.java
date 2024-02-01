@@ -18,8 +18,6 @@ public class ModContainers {
     public static final RegistryObject<ContainerType<EndInfuserContainer>> END_INFUSER_CONTAINER
             = CONTAINERS.register("end_infuser_container",
             () -> IForgeContainerType.create(((windowId, inv, data) -> {
-                System.out.println(data==null);
-                assert data != null;
                 BlockPos pos = data.readBlockPos();
                 World world = inv.player.getEntityWorld();
                 return new EndInfuserContainer(windowId, world, pos, inv, inv.player);
