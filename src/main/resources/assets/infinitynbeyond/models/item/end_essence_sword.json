@@ -1,6 +1,0 @@
-{
-  "parent": "item/handheld",
-  "textures" : {
-    "layer0" : "infinitynbeyond:item/end_essence_sword"
-  }
-}

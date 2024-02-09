@@ -3,6 +3,7 @@ package com.lopotichaaaa.infinitynbeyond.data.recipes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.lopotichaaaa.infinitynbeyond.block.ModBlocks;
+import com.lopotichaaaa.infinitynbeyond.item.ModItems;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -88,10 +89,11 @@ public class EndInfusionRecipe implements IEndInfusingRecipe{
 
             JsonArray ingredients = JSONUtils.getJsonArray(json,"ingredients");
             NonNullList<Ingredient> inputs = NonNullList.withSize(2,Ingredient.EMPTY);
+            int essence = JSONUtils.getInt(json,"essence");
 
-            for (int i=0;i<inputs.size();i++){
-                inputs.set(i,Ingredient.deserialize(ingredients.get(i)));
-            }
+            inputs.set(0, Ingredient.fromStacks(new ItemStack(ModItems.END_ESSENCE.get(),essence)));
+            inputs.set(1,Ingredient.deserialize(ingredients.get(0)));
+
 
             return new EndInfusionRecipe(recipeId,output,
                     inputs);

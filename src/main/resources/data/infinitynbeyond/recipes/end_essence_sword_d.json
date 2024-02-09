@@ -2,13 +2,11 @@
   "type": "infinitynbeyond:infusion",
   "ingredients": [
     {
-      "item": "infinitynbeyond:end_essence"
-    },
-    {
       "item": "minecraft:netherite_sword"
     }
   ],
+  "essence" : 1,
   "result": {
-    "item": "infinitynbeyond:end_essence_sword"
+    "item": "infinitynbeyond:end_essence_sword_d"
   }
 }
