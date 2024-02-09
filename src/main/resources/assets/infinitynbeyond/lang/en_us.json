@@ -4,7 +4,12 @@
 
   "item.infinitynbeyond.end_essence": "End Essence",
 
-  "item.infinitynbeyond.end_essence_sword": "End Essence Sword",
+  "item.infinitynbeyond.end_essence_sword_d": "D Tier End Essence Sword",
+  "item.infinitynbeyond.end_essence_sword_c": "C Tier End Essence Sword",
+  "item.infinitynbeyond.end_essence_sword_b": "B Tier End Essence Sword",
+  "item.infinitynbeyond.end_essence_sword_a": "A Tier End Essence Sword",
+  "item.infinitynbeyond.end_essence_sword_s": "S Tier End Essence Sword",
+  "item.infinitynbeyond.end_essence_sword_s_plus": "S+ Tier End Essence Sword",
   "item.infinitynbeyond.end_essence_pickaxe": "End Essence Pickaxe",
   "item.infinitynbeyond.end_essence_axe": "End Essence Axe",
   "item.infinitynbeyond.end_essence_hoe": "End Essence Hoe",
@@ -18,6 +23,10 @@
 
   "block.infinitynbeyond.end_essence_ore" : "End Essence Ore",
   "block.infinitynbeyond.end_infuser" : "End Infuser",
-  "screen.infinitynbeyond.end_infuser" : "End Infuser"
+  "screen.infinitynbeyond.end_infuser" : "End Infuser",
+
+  "tooltip.infinitynbeyond.holdshiftiertooltip": "Hold §6SHIFT §fto the effect of that tier...",
+
+  "tooltip.infinitynbeyond.end_essence_sword" : "Tier : %1$s"
 
 }
