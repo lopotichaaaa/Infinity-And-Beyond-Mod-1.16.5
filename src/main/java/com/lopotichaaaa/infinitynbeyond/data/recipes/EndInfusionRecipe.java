@@ -3,7 +3,6 @@ package com.lopotichaaaa.infinitynbeyond.data.recipes;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.lopotichaaaa.infinitynbeyond.block.ModBlocks;
-import com.lopotichaaaa.infinitynbeyond.item.ModItems;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
@@ -26,19 +25,23 @@ public class EndInfusionRecipe implements IEndInfusingRecipe{
     private final ResourceLocation id;
     private final ItemStack output;
     private final NonNullList<Ingredient> ingredients;
+    private final int essence;
 
-    public EndInfusionRecipe(ResourceLocation id, ItemStack output, NonNullList<Ingredient> ingredients) {
+    public EndInfusionRecipe(ResourceLocation id, ItemStack output, NonNullList<Ingredient> ingredients, int essence) {
         this.id = id;
         this.output = output;
         this.ingredients = ingredients;
+        this.essence = essence;
+    }
+
+    public int getEssence() {
+        return essence;
     }
 
     @Override
     public boolean matches(IInventory inv, World worldIn) {
-        if(ingredients.get(0).test(inv.getStackInSlot(0))){
-            return ingredients.get(1).test(inv.getStackInSlot(1));
-        }
-        return false;
+        return ingredients.get(0).test(inv.getStackInSlot(1));
+
 
     }
 
@@ -88,29 +91,29 @@ public class EndInfusionRecipe implements IEndInfusingRecipe{
                     "result"));
 
             JsonArray ingredients = JSONUtils.getJsonArray(json,"ingredients");
-            NonNullList<Ingredient> inputs = NonNullList.withSize(2,Ingredient.EMPTY);
+            NonNullList<Ingredient> inputs = NonNullList.withSize(1,Ingredient.EMPTY);
             int essence = JSONUtils.getInt(json,"essence");
 
-            inputs.set(0, Ingredient.fromStacks(new ItemStack(ModItems.END_ESSENCE.get(),essence)));
-            inputs.set(1,Ingredient.deserialize(ingredients.get(0)));
-
+            for (int i=0;i<inputs.size();i++){
+                inputs.set(i,Ingredient.deserialize(ingredients.get(i)));
+            }
 
             return new EndInfusionRecipe(recipeId,output,
-                    inputs);
+                    inputs, essence);
         }
 
         @Nullable
         @Override
         public EndInfusionRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-            NonNullList<Ingredient> inputs = NonNullList.withSize(2,Ingredient.EMPTY);
+            NonNullList<Ingredient> inputs = NonNullList.withSize(1,Ingredient.EMPTY);
             for (int i=0;i<inputs.size();i++){
                 inputs.set(i,Ingredient.read(buffer));
             }
-
+            int essence = buffer.readInt();
             ItemStack output = buffer.readItemStack();
 
             return new EndInfusionRecipe(recipeId,output,
-                    inputs);
+                    inputs, essence);
         }
 
         @Override
@@ -119,6 +122,7 @@ public class EndInfusionRecipe implements IEndInfusingRecipe{
             for (Ingredient ing : recipe.getIngredients()){
                 ing.write(buffer);
             }
+            buffer.writeInt(recipe.getEssence());
             buffer.writeItemStack(recipe.getRecipeOutput(),false);
         }
     }

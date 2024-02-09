@@ -1,13 +1,12 @@
 {
   "type": "infinitynbeyond:infusion",
   "ingredients": [
-    {
-      "item": "infinitynbeyond:end_essence"
-    },
+
     {
       "item": "minecraft:netherite_boots"
     }
   ],
+  "essence" : 1,
   "result": {
     "item": "infinitynbeyond:end_essence_boots"
   }
