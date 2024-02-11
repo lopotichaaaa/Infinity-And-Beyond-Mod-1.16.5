@@ -8,6 +8,10 @@ import net.minecraft.util.text.Color;
 import java.util.function.Supplier;
 
 public enum EndEssenceItemTiers implements IItemTier {
+
+
+
+
     D(4, 4062, 12.0F, 7.0F, 24,
             ()->Ingredient.fromItems(ModItems.END_ESSENCE.get()),"D","FFFFFF"),
     C(4, 8124, 14.0F, 8.0F, 26,
@@ -21,6 +25,8 @@ public enum EndEssenceItemTiers implements IItemTier {
     S_PLUS(4, 50000, 20.0F, 13.0F, 30,
             ()->Ingredient.fromItems(ModItems.END_ESSENCE.get()),"S+","f7d128")
     ;
+
+    private static String order = "DCBAS";
 
     private final int harvestLevel;
     private final int maxUses;
@@ -40,6 +46,18 @@ public enum EndEssenceItemTiers implements IItemTier {
         this.repairMaterial = new LazyValue<>(repairMaterial);
         this.tierName = tierName;
         this.textColor = Color.fromHex(textColor);
+    }
+
+
+    public boolean greaterEqualThan(EndEssenceItemTiers other){
+        if (this==S_PLUS){
+            return true;
+        }
+        if (other==S_PLUS){
+            return false;
+        }
+        int rank = order.indexOf(getTierName());
+        return rank>=order.indexOf(other.getTierName());
     }
 
     public String getTierName() {

@@ -1,0 +1,12 @@
+{
+  "type": "infinitynbeyond:infusion",
+  "ingredients": [
+    {
+      "item": "infinitynbeyond:end_essence_sword_c"
+    }
+  ],
+  "essence" : 4,
+  "result": {
+    "item": "infinitynbeyond:end_essence_sword_b"
+  }
+}

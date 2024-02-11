@@ -26,6 +26,7 @@
   "screen.infinitynbeyond.end_infuser" : "End Infuser",
 
   "tooltip.infinitynbeyond.holdshiftiertooltip": "Hold §6SHIFT §fto the effect of that tier...",
+  "tooltip.infinitynbeyond.tierswordeffects": "Effects from Tier %1$s",
 
   "tooltip.infinitynbeyond.end_essence_sword" : "Tier : %1$s"
 
